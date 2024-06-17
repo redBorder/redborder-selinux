@@ -15,11 +15,14 @@ require {
     type useradd_t;
     type var_lib_t;
     type transproxy_port_t;
+    type keepalived_t;
+    type ping_exec_t;
     class tcp_socket name_connect;
-    class file { append create execute execute_no_trans ioctl open read setattr link unlink write rename };
+    class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
 
     class dir rmdir;
     class process execmem;
+    class process setcap;        
 }
 
 #============= init_t ==============
@@ -45,3 +48,8 @@ allow init_t memcache_port_t:tcp_socket name_connect;
 
 #============= useradd_t ==============
 allow useradd_t var_lib_t:file { create open setattr write };
+
+#============= keepalived_t ==============
+allow keepalived_t lib_t:file setattr;
+allow keepalived_t ping_exec_t:file { execute execute_no_trans getattr open read };
+allow keepalived_t self:process setcap;

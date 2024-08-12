@@ -17,6 +17,12 @@ require {
     type transproxy_port_t;
     type keepalived_t;
     type ping_exec_t;
+    type ssh_keygen_t;
+    type mongod_t;
+    type sysctl_fs_t;
+
+    class dir { add_name search write };
+    class capability dac_override;
     class tcp_socket name_connect;
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
 
@@ -53,3 +59,12 @@ allow useradd_t var_lib_t:file { create open setattr write };
 allow keepalived_t lib_t:file setattr;
 allow keepalived_t ping_exec_t:file { execute execute_no_trans getattr open read };
 allow keepalived_t self:process setcap;
+
+#============= mongod_t ==============
+allow mongod_t sysctl_fs_t:dir search;
+allow mongod_t sysctl_fs_t:file { open read };
+
+#============= ssh_keygen_t ==============
+allow ssh_keygen_t httpd_sys_content_t:dir { add_name write };
+allow ssh_keygen_t httpd_sys_content_t:file { create getattr open read write };
+allow ssh_keygen_t self:capability dac_override;

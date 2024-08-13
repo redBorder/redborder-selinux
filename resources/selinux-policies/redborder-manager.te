@@ -20,13 +20,12 @@ require {
     type ssh_keygen_t;
     type mongod_t;
     type sysctl_fs_t;
+    type sysctl_net_t;
 
-    class dir { add_name search write };
+    class dir { add_name search write rmdir };
     class capability dac_override;
     class tcp_socket name_connect;
-    class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
-
-    class dir rmdir;
+    class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename lock };
     class process execmem;
     class process setcap;        
 }
@@ -35,8 +34,7 @@ require {
 allow init_t admin_home_t:file {read open};
 
 allow init_t http_cache_port_t:tcp_socket name_connect;
-
-allow init_t httpd_sys_content_t:file { append create execute execute_no_trans ioctl open read setattr unlink write link rename };
+allow init_t httpd_sys_content_t:file { append create execute execute_no_trans ioctl open read setattr unlink write link rename lock };
 allow init_t httpd_tmp_t:dir rmdir;
 allow init_t httpd_sys_content_t:dir rmdir;
 
@@ -63,6 +61,8 @@ allow keepalived_t self:process setcap;
 #============= mongod_t ==============
 allow mongod_t sysctl_fs_t:dir search;
 allow mongod_t sysctl_fs_t:file { open read };
+allow mongod_t sysctl_net_t:dir search;
+allow mongod_t sysctl_net_t:file getattr;
 
 #============= ssh_keygen_t ==============
 allow ssh_keygen_t httpd_sys_content_t:dir { add_name write };

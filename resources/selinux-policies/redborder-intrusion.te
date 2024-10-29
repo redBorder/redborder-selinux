@@ -1,0 +1,35 @@
+module redborder-intrusion 1.0;
+
+require {
+        type tmpfs_t;
+        type default_t;
+        type kernel_t;
+        type snort_t;
+        type user_tmp_t;
+        type var_run_t;
+        type snort_etc_t;
+        type watchdog_t;
+        class file { create getattr map open read write };
+        class socket map;
+        class capability dac_override;
+        class sock_file { create setattr unlink };
+        class dir { add_name remove_name search write };
+        class process execmem;
+}
+
+#============= snort_t ==============
+
+allow snort_t default_t:file read;
+allow snort_t default_t:file { getattr open };
+allow snort_t self:capability dac_override;
+allow snort_t self:socket map;
+allow snort_t snort_etc_t:dir { add_name remove_name write };
+allow snort_t snort_etc_t:sock_file { create setattr unlink };
+allow snort_t tmpfs_t:file { create getattr open read write };
+allow snort_t user_tmp_t:file open;
+allow snort_t snort_t:process execmem;
+allow snort_t var_run_t:file { getattr open write };
+
+#============= watchdog_t ==============
+allow watchdog_t kernel_t:dir search;
+allow watchdog_t kernel_t:file { open read };

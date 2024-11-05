@@ -1,0 +1,11 @@
+module redborder-proxy 1.0;
+
+require {
+        type unreserved_port_t;
+        type syslogd_t;
+        class tcp_socket name_connect;
+}
+
+#============= syslogd_t ==============
+
+allow syslogd_t unreserved_port_t:tcp_socket name_connect;

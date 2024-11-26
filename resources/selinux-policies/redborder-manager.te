@@ -30,7 +30,7 @@ require {
     class dir { getattr rmdir add_name search write remove_name };
     class process execmem;
     class process setcap;
-    class capability { chown dac_override fsetid };
+    class capability { chown dac_override fsetid fowner };
 }
 
 #============= init_t ==============
@@ -68,7 +68,7 @@ allow keepalived_t hostname_exec_t:file { execute execute_no_trans getattr open 
 allow keepalived_t self:process setcap;
 allow keepalived_t postgresql_db_t:dir { getattr rmdir search write add_name remove_name };
 allow keepalived_t postgresql_db_t:file { create getattr ioctl open read rename setattr unlink write };
-allow keepalived_t self:capability { chown dac_override fsetid };
+allow keepalived_t self:capability { chown dac_override fsetid fowner };
 allow keepalived_t sudo_exec_t:file getattr;
 
 #============= mongod_t ==============

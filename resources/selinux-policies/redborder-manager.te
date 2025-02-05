@@ -23,19 +23,21 @@ require {
     type sysctl_net_t;
     type pam_var_run_t;
     type hostname_exec_t;
+    type postgresql_db_t;
+    type ifconfig_exec_t;
 
     class tcp_socket name_connect;
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
 
-    class dir { rmdir add_name search write };
+    class dir { rmdir add_name remove_name search write };
+
     class process execmem;
     class process setcap;
-    class capability dac_override;
-
+    class capability { chown dac_override fsetid };
 }
 
 #============= init_t ==============
-allow init_t admin_home_t:file {read open};
+allow init_t admin_home_t:file {read open ioctl};
 
 allow init_t http_cache_port_t:tcp_socket name_connect;
 
@@ -67,10 +69,14 @@ allow keepalived_t lib_t:file setattr;
 allow keepalived_t ping_exec_t:file { execute execute_no_trans getattr open read };
 allow keepalived_t hostname_exec_t:file { execute execute_no_trans getattr open read };
 allow keepalived_t self:process setcap;
+allow keepalived_t ifconfig_exec_t:file { execute execute_no_trans getattr open read };
+allow keepalived_t postgresql_db_t:dir { add_name remove_name search write };
+allow keepalived_t postgresql_db_t:file { create getattr ioctl open read rename setattr unlink write };
+allow keepalived_t self:capability { chown dac_override fsetid };
 
 #============= mongod_t ==============
 allow mongod_t sysctl_fs_t:dir search;
-allow mongod_t sysctl_fs_t:file { open read };
+allow mongod_t sysctl_fs_t:file { getattr open read };
 allow mongod_t sysctl_net_t:dir search;
 
 #============= ssh_keygen_t ==============

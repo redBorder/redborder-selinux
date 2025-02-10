@@ -38,6 +38,8 @@ require {
     type systemd_logind_t;
     type systemd_systemctl_exec_t;
     type var_t;
+    type postgresql_log_t;
+    type user_tmp_t;
 
     class tcp_socket name_connect;
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
@@ -111,11 +113,15 @@ allow keepalived_t ssh_home_t:dir search;
 allow keepalived_t systemd_logind_t:dbus send_msg;
 allow keepalived_t systemd_systemctl_exec_t:file { execute execute_no_trans getattr open read };
 allow keepalived_t var_t:dir { read write };
+allow keepalived_t postgersql_log_t:dir { getattr open read remove_name rmdir search write };
+allow keepalived_t postgresql_log_t:file unlink
+allow keepalived_t user_tmp_t:file unlink;
 
 #============= mongod_t ==============
 allow mongod_t sysctl_fs_t:dir search;
 allow mongod_t sysctl_fs_t:file { getattr open read };
 allow mongod_t sysctl_net_t:dir search;
+allow mongod_t sysctl_net_t:file getattr;
 
 #============= ssh_keygen_t ==============
 allow ssh_keygen_t httpd_sys_content_t:dir { add_name write };

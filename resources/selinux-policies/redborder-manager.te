@@ -44,9 +44,8 @@ require {
 
     class dir { rmdir add_name remove_name search write create getattr open read rename setattr };
 
-    class process execmem;
-    class process setcap;
-    class capability { chown dac_override fsetid audit_write sys_resource fowner };
+    class process { execmem setcap transition setexec };
+    class capability { chown dac_override fsetid audit_write sys_resource fowner setuid setgid };
 
     class dbus send_msg;
     class filesystem getattr;
@@ -70,14 +69,15 @@ allow init_t postgresql_port_t:tcp_socket name_connect;
 allow init_t init_t:process execmem;
 allow init_t ssh_exec_t:file { execute execute_no_trans open read };
 
-allow init_t sudo_exec_t:file {execute open read};
+allow init_t sudo_exec_t:file { execute execute_no_trans getattr open read };
 
 allow init_t zookeeper_client_port_t:tcp_socket name_connect;
 
 allow init_t memcache_port_t:tcp_socket name_connect;
 
-allow init_t sudo_exec_t:file execute_no_trans;
 allow init_t pam_var_run_t:file write;
+allow init_t keepalived_t:process { transition setexec };
+allow init_t self:capability { setuid setgid };
 
 #============= useradd_t ==============
 allow useradd_t var_lib_t:file { create open setattr write };

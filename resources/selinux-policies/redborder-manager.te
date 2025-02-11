@@ -118,7 +118,7 @@ allow keepalived_t postgresql_log_t:dir { getattr open read remove_name rmdir se
 allow keepalived_t postgresql_log_t:file unlink;
 allow keepalived_t user_tmp_t:file unlink;
 allow keepalived_t su_exec_t:dir { open read };
-allow keepalived_t su_exec_t:file { open execute getattr read };
+allow keepalived_t su_exec_t:file { open execute getattr read execute_no_trans };
 
 #============= mongod_t ==============
 allow mongod_t sysctl_fs_t:dir search;

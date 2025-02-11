@@ -40,6 +40,7 @@ require {
     type var_t;
     type postgresql_log_t;
     type user_tmp_t;
+    type su_exec_t;
 
     class tcp_socket name_connect;
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
@@ -116,6 +117,8 @@ allow keepalived_t var_t:dir { read write };
 allow keepalived_t postgresql_log_t:dir { getattr open read remove_name rmdir search write };
 allow keepalived_t postgresql_log_t:file unlink;
 allow keepalived_t user_tmp_t:file unlink;
+allow keepalived_t su_exec_t:dir { open read };
+allow keepalived_t su_exec_t:file { open execute getattr read };
 
 #============= mongod_t ==============
 allow mongod_t sysctl_fs_t:dir search;

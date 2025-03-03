@@ -23,7 +23,8 @@ require {
     type sysctl_net_t;
     type pam_var_run_t;
     type hostname_exec_t;
-
+    type us_cli_port_t;
+    
     class tcp_socket name_connect;
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
 

@@ -9,6 +9,7 @@ require {
         type var_run_t;
         type snort_etc_t;
         type watchdog_t;
+        type unreserved_port_t;
         class file { create getattr map open read write };
         class socket map;
         class capability dac_override;

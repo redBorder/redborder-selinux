@@ -17,6 +17,7 @@ require {
         class dir { add_name remove_name search write };
         class process execmem;
         class tcp_socket name_connect;
+        class capability sys_nice;
 }
 
 #============= snort_t ==============
@@ -32,6 +33,7 @@ allow snort_t user_tmp_t:file open;
 allow snort_t snort_t:process execmem;
 allow snort_t var_run_t:file { getattr open write };
 allow snort_t unreserved_port_t:tcp_socket name_connect;
+allow snort_t self:capability sys_nice;
 
 #============= watchdog_t ==============
 allow watchdog_t kernel_t:dir search;

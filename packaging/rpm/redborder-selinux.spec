@@ -88,10 +88,13 @@ esac
 /etc/selinux/redborder-manager.pp
 /etc/selinux/redborder-ips.pp
 /etc/selinux/redborder-proxy.pp
+/etc/selinux/redborder-intrusion.pp
 
 %doc
 
 %changelog
+* Wed Jun 25 2025 Miguel Álvarez <malvarez@redborder.com> -
+- adding intrusion
 * Wed Oct 30 2024 David Vanhoucke <dvanhoucke@redborder.com> - 0.0.2-1
 - adding proxy
 * Fri Mar 22 2024 David Vanhoucke <dvanhoucke@redborder.com> - 0.0.1-1

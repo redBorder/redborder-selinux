@@ -29,6 +29,7 @@ allow snort_t tmpfs_t:file { create getattr open read write };
 allow snort_t user_tmp_t:file open;
 allow snort_t snort_t:process execmem;
 allow snort_t var_run_t:file { getattr open write };
+allow snort_t unreserved_port_t:tcp_socket name_connect;
 
 #============= watchdog_t ==============
 allow watchdog_t kernel_t:dir search;

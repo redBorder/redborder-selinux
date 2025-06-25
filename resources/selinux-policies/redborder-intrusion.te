@@ -16,6 +16,7 @@ require {
         class sock_file { create setattr unlink };
         class dir { add_name remove_name search write };
         class process execmem;
+        class tcp_socket name_connect;
 }
 
 #============= snort_t ==============

@@ -71,11 +71,6 @@ allow keepalived_t ping_exec_t:file { execute execute_no_trans getattr open read
 allow keepalived_t hostname_exec_t:file { execute execute_no_trans getattr open read };
 allow keepalived_t self:process setcap;
 
-#============= mongod_t ==============
-allow mongod_t sysctl_fs_t:dir search;
-allow mongod_t sysctl_fs_t:file { open read };
-allow mongod_t sysctl_net_t:dir search;
-
 #============= ssh_keygen_t ==============
 allow ssh_keygen_t httpd_sys_content_t:dir { add_name write };
 allow ssh_keygen_t httpd_sys_content_t:file { create getattr open read write };

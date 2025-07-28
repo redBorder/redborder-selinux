@@ -3,6 +3,10 @@ redborder-selix CHANGELOG
 
 This file is used to list changes made in each version of the redborder-selinux.
 
+0.6.0
+- [nilsver]
+  - Remove selinux allowance rules for mongo
+
 0.0.1
 -----
 - [dvanhoucke]

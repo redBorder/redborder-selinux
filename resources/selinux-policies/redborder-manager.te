@@ -24,8 +24,10 @@ require {
     type pam_var_run_t;
     type hostname_exec_t;
     type us_cli_port_t;
+    type redis_t;
+    type unreserved_port_t;
     
-    class tcp_socket name_connect;
+    class tcp_socket { name_bind name_connect };
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
 
     class dir { rmdir add_name search write };
@@ -75,3 +77,6 @@ allow keepalived_t self:process setcap;
 allow ssh_keygen_t httpd_sys_content_t:dir { add_name write };
 allow ssh_keygen_t httpd_sys_content_t:file { create getattr open read write };
 allow ssh_keygen_t self:capability dac_override;
+
+#============= redis_t ==============
+allow redis_t unreserved_port_t:tcp_socket { name_bind name_connect };

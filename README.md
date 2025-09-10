@@ -1,1 +1,33 @@
 # redborder-selinux
+
+This repository contains the **SELinux policies** required for the **redborder** platform.
+The `.te` files defined here adjust and extend SELinux security rules so that redborder services and components can operate properly in environments with SELinux enabled.
+
+---
+
+#### Platforms
+
+- Rocky Linux 9
+
+## 🔧 Usage
+
+## Contributing
+
+1. Fork the repository on Github
+2. Create a named feature branch (like add_component_x)
+3. Write your change
+4. Write tests for your change (if applicable)
+5. Run the tests, ensuring they all pass
+6. Submit a Pull Request using Github
+
+## License and Authors
+
+* David Vanhoucke <dvanhoucke@redborder.com>
+* Miguel Negrón <manegron@redborder.com>
+* Miguel Álvarez <malvarez@redborder.com>
+* Nils Verschaeve <nverschaeve@redborder.com>
+* Luis Blanco <ljblanco@redborder.com>
+* Julio Peralta <jperalta@redborder.com>
+* Juan Soto <jsoto@redborder.com>
+* Rafael Gómez <rgomez@redborder.com>
+* Pablo Pérez González <pperez@redborder.com>

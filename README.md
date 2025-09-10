@@ -11,6 +11,11 @@ The `.te` files defined here adjust and extend SELinux security rules so that re
 
 ## 🔧 Usage
 
+1. Modify the policies
+2. Create the rpm with `sudo make rpm`
+3. Upload to your manager and install it
+4. Run `chef-client` and will apply the policies
+
 ## Contributing
 
 1. Fork the repository on Github

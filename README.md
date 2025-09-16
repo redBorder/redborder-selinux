@@ -5,6 +5,19 @@ The `.te` files defined here adjust and extend SELinux security rules so that re
 
 ---
 
+## Checking for Required Policies
+
+If some redborder services are being blocked by SELinux, you can analyze the denial logs and generate a module with the missing rules using:
+
+```cmd
+audit2allow -a -M latest_policies
+```
+
+This command:
+
+- Reads all recent SELinux denials from the audit log.
+- Generates a new SELinux policy module (`latest_policies.pp`).
+
 #### Platforms
 
 - Rocky Linux 9
@@ -27,12 +40,12 @@ The `.te` files defined here adjust and extend SELinux security rules so that re
 
 ## License and Authors
 
-* David Vanhoucke <dvanhoucke@redborder.com>
-* Miguel Negrón <manegron@redborder.com>
-* Miguel Álvarez <malvarez@redborder.com>
-* Nils Verschaeve <nverschaeve@redborder.com>
-* Luis Blanco <ljblanco@redborder.com>
-* Julio Peralta <jperalta@redborder.com>
-* Juan Soto <jsoto@redborder.com>
-* Rafael Gómez <rgomez@redborder.com>
-* Pablo Pérez González <pperez@redborder.com>
+- David Vanhoucke <dvanhoucke@redborder.com>
+- Miguel Negrón <manegron@redborder.com>
+- Miguel Álvarez <malvarez@redborder.com>
+- Nils Verschaeve <nverschaeve@redborder.com>
+- Luis Blanco <ljblanco@redborder.com>
+- Julio Peralta <jperalta@redborder.com>
+- Juan Soto <jsoto@redborder.com>
+- Rafael Gómez <rgomez@redborder.com>
+- Pablo Pérez González <pperez@redborder.com>

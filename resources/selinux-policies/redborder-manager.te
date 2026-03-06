@@ -27,11 +27,12 @@ require {
     type redis_t;
     type unreserved_port_t;
     type ntop_port_t;
+    type logrotate_t;
 
     class tcp_socket { name_bind name_connect };
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
 
-    class dir { rmdir add_name search write };
+    class dir { rmdir add_name search read open write };
     class process execmem;
     class process setcap;
     class capability dac_override;
@@ -83,3 +84,7 @@ allow ssh_keygen_t self:capability dac_override;
 
 #============= redis_t ==============
 allow redis_t unreserved_port_t:tcp_socket { name_bind name_connect };
+
+#============= logrotate_t ==============
+allow logrotate_t httpd_sys_content_t:dir { search read open write add_name };
+allow logrotate_t httpd_sys_content_t:file { read open getattr setattr write create };

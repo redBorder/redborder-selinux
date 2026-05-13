@@ -1,4 +1,4 @@
-module redborder-manager 1.0;
+module redborder-manager 1.1;
 
 require {
     type init_t;
@@ -15,6 +15,7 @@ require {
     type useradd_t;
     type var_lib_t;
     type transproxy_port_t;
+    type iptables_t;
     type keepalived_t;
     type ping_exec_t;
     type sysctl_fs_t;
@@ -28,6 +29,8 @@ require {
     type unreserved_port_t;
     type ntop_port_t;
     type logrotate_t;
+    type modules_dep_t;
+    type modules_object_t;
 
     class tcp_socket { name_bind name_connect };
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
@@ -36,11 +39,14 @@ require {
     class process execmem;
     class process setcap;
     class capability dac_override;
+    class system module_load;
+    class process { noatsecure rlimitinh siginh };
+    class capability sys_module;
 
 }
 
 #============= init_t ==============
-allow init_t admin_home_t:file {read open};
+allow init_t admin_home_t:file {read open ioctl};
 
 allow init_t http_cache_port_t:tcp_socket name_connect;
 
@@ -72,10 +78,16 @@ allow init_t ntop_port_t:tcp_socket name_connect;
 allow useradd_t var_lib_t:file { create open setattr write };
 
 #============= keepalived_t ==============
+allow keepalived_t modules_dep_t:file { getattr open read };
+allow keepalived_t modules_object_t:dir { search read open };
+allow keepalived_t modules_object_t:file { getattr open read };
+allow keepalived_t self:system module_load;
 allow keepalived_t lib_t:file setattr;
 allow keepalived_t ping_exec_t:file { execute execute_no_trans getattr open read };
 allow keepalived_t hostname_exec_t:file { execute execute_no_trans getattr open read };
 allow keepalived_t self:process setcap;
+allow keepalived_t self:capability sys_module;
+allow keepalived_t iptables_t:process { siginh rlimitinh noatsecure };
 
 #============= ssh_keygen_t ==============
 allow ssh_keygen_t httpd_sys_content_t:dir { add_name write };

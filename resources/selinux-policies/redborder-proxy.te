@@ -14,3 +14,7 @@ allow syslogd_t unreserved_port_t:tcp_socket name_connect;
 #============= snmp_t ==============
 
 allow snmpd_t unreserved_port_t:tcp_socket name_connect;
+
+#============= init_t ==============
+
+allow init_t ping_t:process2 nnp_transition;

@@ -28,6 +28,7 @@ require {
     type redis_t;
     type unreserved_port_t;
     type ntop_port_t;
+    type soundd_port_t;
     type logrotate_t;
     type modules_dep_t;
     type modules_object_t;
@@ -49,6 +50,7 @@ require {
 allow init_t admin_home_t:file {read open ioctl};
 
 allow init_t http_cache_port_t:tcp_socket name_connect;
+allow init_t soundd_port_t:tcp_socket name_connect;
 
 allow init_t httpd_sys_content_t:file { append create execute execute_no_trans ioctl open read setattr unlink write link rename };
 allow init_t httpd_tmp_t:dir rmdir;

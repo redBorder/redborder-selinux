@@ -3,9 +3,23 @@ module redborder-proxy 1.0;
 require {
         type unreserved_port_t;
         type syslogd_t;
+        type snmpd_t;
+        type init_t;
+        type ping_t;
         class tcp_socket name_connect;
+        class process2 nnp_transition;
 }
 
 #============= syslogd_t ==============
 
 allow syslogd_t unreserved_port_t:tcp_socket name_connect;
+
+#============= snmp_t ==============
+
+allow snmpd_t unreserved_port_t:tcp_socket name_connect;
+
+#============= init_t ==============
+
+# Allow init_t to transition to ping_t even with NoNewPrivileges active
+allow init_t ping_t:process2 nnp_transition;
+

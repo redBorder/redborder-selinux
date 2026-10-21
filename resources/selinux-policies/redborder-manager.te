@@ -1,4 +1,4 @@
-module redborder-manager 1.1;
+module redborder-manager 1.2;
 
 require {
     type init_t;
@@ -6,6 +6,7 @@ require {
     type http_cache_port_t;
     type httpd_sys_content_t;
     type httpd_tmp_t;
+    type tmp_t;
     type lib_t;
     type postgresql_port_t;
     type ssh_exec_t;
@@ -36,6 +37,7 @@ require {
     class file { append create execute execute_no_trans ioctl open getattr read setattr link unlink write rename };
 
     class dir { rmdir add_name search read open write };
+    class lnk_file unlink;
     class process execmem;
     class process setcap;
     class capability dac_override;
@@ -73,6 +75,11 @@ allow init_t sudo_exec_t:file execute_no_trans;
 allow init_t pam_var_run_t:file write;
 
 allow init_t ntop_port_t:tcp_socket name_connect;
+
+# webui (puma) and rb-workers run as init_t: let them read and clean up files
+# that child processes (e.g. tar) create in /tmp
+allow init_t tmp_t:file open;
+allow init_t tmp_t:lnk_file unlink;
 
 #============= useradd_t ==============
 allow useradd_t var_lib_t:file { create open setattr write };
